@@ -3,45 +3,61 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
+    "@cap-js/hana": "^2",
     "@sap/cds": "^9",
+    "@sap/xssec": "^4",
     "cds-numberrange-plugin": "^1.0.1",
-    "express": "^4"
+    "express": "^4",
+    "nodemailer": "^8.0.6"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
-    "cds-plugin-ui5": "^0.13.0"
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5"
   },
   "cds": {
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "url": "db.sqlite"
+        "kind": "hana",
+        "pool": {
+          "min": 100,
+          "max": 1800,
+          "evictionRunIntervalMillis": 60000,
+          "acquireTimeoutMillis": 10000,
+          "numTestsPerEvictionRun": 500,
+          "softIdleTimeoutMillis": 30000,
+          "idleTimeoutMillis": 30000,
+          "testOnBorrow": true,
+          "fifo": true
         }
       },
-      "auth": {
-        "kind": "mocked",
-        "users": {
-          "123": {
-            "password": "1234",
-            "roles": [
-              "Creator"
-            ]
-          },
-          "456": {
-            "password": "1234",
-            "roles": [
-              "Creator"
-            ]
-          },
-          "789": {
-            "password": "1234",
-            "roles": [
-              "Manager"
-            ]
+      "[development]": {
+        "auth": {
+          "strategy": "mock",
+          "users": {
+            "gowthaminagineni27@gmail.com": {
+              "password": "Gowthami",
+              "roles": [
+                "authenticated-user",
+                "Manager"
+              ]
+            }
           }
         }
-      }
+      },
+      "[hybrid]": {
+        "auth": {
+          "kind": "xsuaa",
+          "strategy": "xsuaa"
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "connectivity": true,
+      "destinations": true
     },
     "cds-numberrange-plugin": {
       "ranges": [
@@ -62,7 +78,10 @@
   "scripts": {
     "start": "cds-serve",
     "watch-timesheet": "cds watch --open timesheet/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-myapp": "cds watch --open myapp/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-myapp": "cds watch --open myapp/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy timesheet --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
   "private": true,
   "workspaces": [

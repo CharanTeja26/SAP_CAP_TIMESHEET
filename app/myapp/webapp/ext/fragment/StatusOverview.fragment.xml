@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:viz="sap.viz.ui5.controls"
+        xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data">
+    <m:Dialog title="Status Overview" contentWidth="800px" contentHeight="auto" core:require="{handler: 'myapp/ext/controller/EmployeeAnalytics'}">
+        <l:FixFlex class="sapUiMediumMargin" minFlexSize="250">
+        <l:flexContent>
+            <viz:VizFrame uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='pie' vizProperties="{title:{text:'Visual representation of timesheet status distribution', visible:'true'},plotArea:{dataLabel :{visible: true}}}">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/TimesheetStatusAnalytics}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Status" value="{status}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Count" value="{path: 'totalCount'}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+                <viz:feeds>
+                    <viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
+                    <viz.feeds:FeedItem  uid="color" type="Dimension" values="Status" />
+                </viz:feeds>
+                <viz:dependents>
+                    <viz:Popover ></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </l:flexContent>
+
+    </l:FixFlex>
+        <m:buttons>
+            <m:Button text="Close" press="handler.onCancelStatusOverview"/>
+        </m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

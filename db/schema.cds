@@ -13,8 +13,11 @@ entity Activities : cuid, managed {
     ActNo            : String(10)    @readonly;
     pers             : Association to one Employees;
     company          : Association to one Companies;
+    @mandatory
     workDate         : Date default $now;
+    @mandatory
     timeFrom         : Time;
+    @mandatory
     timeTo           : Time;
     hours            : Decimal(5, 2) @UI.Hidden;
     hoursText        : String        @readonly;
@@ -96,3 +99,9 @@ type EmployeeLevel      : String(15) enum {
     Senior = 'Senior';
     Lead = 'Lead';
 };
+
+entity Holidays {
+    key ID          : UUID;
+        holidayDate : Date;
+        name        : String(100);
+}

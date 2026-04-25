@@ -30,7 +30,7 @@ annotate service.Activities with @(
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'Company',
+                Label: 'Client',
                 Value: company_companyCode,
             },
             {
@@ -87,7 +87,7 @@ annotate service.Activities with @(
         },
         {
             $Type: 'UI.DataField',
-            Label: 'Company',
+            Label: 'Client',
             Value: company_companyCode,
         },
         {
@@ -190,11 +190,6 @@ annotate service.Activities with @(
                 Value: hoursText,
                 Label: 'Total Hours',
             },
-            {
-                $Type: 'UI.DataField',
-                Value: workDate,
-                Label: 'Work Date',
-            },
         ],
     },
     UI.DataPoint #status_code                 : {
@@ -247,6 +242,7 @@ annotate service.Activities @(Common.SideEffects #RecalcHours: {
 });
 
 annotate service.Activities with {
+    @mandatory
     company @(
         Common.ValueList               : {
             $Type         : 'Common.ValueListType',
@@ -259,7 +255,7 @@ annotate service.Activities with {
         },
         Common.ValueListWithFixedValues: true,
         Common.Text                    : company.companyName,
-        Common.Label                   : 'Company',
+        Common.Label                   : 'Client',
         Common.Text.@UI.TextArrangement : #TextOnly,
     )
 };
@@ -321,7 +317,7 @@ annotate service.ApproverWorkList with @(
         {
             $Type: 'UI.DataField',
             Value: company_companyCode,
-            Label: 'Company',
+            Label: 'Client',
         },
         {
             $Type: 'UI.DataField',
@@ -669,6 +665,7 @@ annotate service.inText:comment with @UI.MultiLineText: true;
 
 
 annotate service.Activities with {
+    @mandatory
     Module @(
         Common.Text : Module.name,
         Common.Text.@UI.TextArrangement : #TextOnly,
