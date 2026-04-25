@@ -24,21 +24,6 @@
           "odataVersion": "4.0"
         }
       }
-    },
-    "crossNavigation": {
-      "inbounds": {
-        "managenemo-display": {
-          "semanticObject": "managetime",
-          "action": "display",
-          "title": "Timesheet Management System",
-          "subTitle": "Track, Manage and Approve Employee Work Hours",
-          "icon": "sap-icon://time-entry-request",
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          }
-        }
-      }
     }
   },
   "sap.ui": {
@@ -89,14 +74,6 @@
           "groupId": "$auto",
           "updateGroupId": "$auto"
         }
-      },
-      "holidayModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "/odata/v4/timesheet/Holidays"
-      },
-      "EmployeeAnalytics": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "/odata/v4/timesheet/TimesheetAnalytics"
       },
       "@i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
@@ -225,37 +202,6 @@
                     "DataField::ActNo": {
                       "width": "8rem"
                     }
-                  },
-                  "actions": {
-                    "EmployeeAnalytics": {
-                      "press": "myapp.ext.controller.EmployeeAnalytics.loadEmployeeAnalytics",
-                      "visible": true,
-                      "enabled": true,
-                      "requiresSelection": false,
-                      "text": "Employee Analytics"
-                    },
-                    "StatusOverview": {
-                      "press": "myapp.ext.controller.EmployeeAnalytics.onPressStatusOverview",
-                      "visible": true,
-                      "enabled": true,
-                      "requiresSelection": false,
-                      "text": "Status Overview",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "EmployeeAnalytics"
-                      }
-                    },
-                    "MonthlyTrends": {
-                      "press": "myapp.ext.controller.EmployeeAnalytics.onPressMonthlyTrends",
-                      "visible": true,
-                      "enabled": true,
-                      "requiresSelection": false,
-                      "text": "Monthly Trends",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "StatusOverview"
-                      }
-                    }
                   }
                 }
               },
@@ -284,21 +230,7 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Activities",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.FieldGroup#Time": {
-                  "fields": {
-                    "Workdate1": {
-                      "template": "myapp.ext.fragment.Workdate1",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "DataField::hoursText"
-                      },
-                      "label": "Work Date"
-                    }
-                  }
-                }
-              }
+              "contextPath": "/Activities"
             }
           }
         }
@@ -316,9 +248,5 @@
   },
   "sap.fe": {
     "app": {}
-  },
-  "sap.cloud": {
-    "public": true,
-    "service": "timesheet"
   }
 }

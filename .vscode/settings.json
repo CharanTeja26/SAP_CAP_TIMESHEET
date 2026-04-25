@@ -8,6 +8,5 @@
     // "tab",
     // "tsv"
   ],
-  "livePreview.defaultPreviewPath": "/app/myapp/webapp/index.html",
-  "SAP HANA Database Explorer.ShowXsAdvancedConnections": true
+  "livePreview.defaultPreviewPath": "/app/myapp/webapp/index.html"
 }

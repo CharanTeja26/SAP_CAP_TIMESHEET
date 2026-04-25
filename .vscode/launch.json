@@ -15,15 +15,6 @@
       "skipFiles": [
         "<node_internals>/**"
       ]
-    },
-    {
-      "command": "cds watch --profile development",
-      "name": "cds watch profile development",
-      "request": "launch",
-      "type": "node-terminal",
-      "skipFiles": [
-        "<node_internals>/**"
-      ]
     }
   ]
 }
